@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:notifi/DataModel.dart';
-import 'package:notifi/Screens/Yourplace.dart';
-import 'package:notifi/provider/textprovider.dart';
+import 'package:notifi/Screens/Added.dart';
 
 class PlaceScreen extends ConsumerWidget {
   const PlaceScreen({super.key, required this.item});
@@ -17,7 +16,13 @@ class PlaceScreen extends ConsumerWidget {
           itemCount: item.length,
           itemBuilder: (context, index) {
             return InkWell(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: ((context) {
+                  return AddedScreen(
+                    model: item[index],
+                  );
+                })));
+              },
               child: ListTile(
                 title: Text(item[index].place),
               ),
