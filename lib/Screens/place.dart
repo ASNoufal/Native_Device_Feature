@@ -24,6 +24,10 @@ class PlaceScreen extends ConsumerWidget {
                 })));
               },
               child: ListTile(
+                leading: CircleAvatar(
+                  radius: 26,
+                  backgroundImage: FileImage(item[index].image),
+                ),
                 title: Text(item[index].place),
               ),
             );

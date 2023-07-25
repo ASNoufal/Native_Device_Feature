@@ -34,8 +34,11 @@ class _YourPlaceScreenState extends ConsumerState<YourPlaceScreen> {
                 icon: const Icon(Icons.add))
           ],
         ),
-        body: PlaceScreen(
-          item: place,
+        body: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: PlaceScreen(
+            item: place,
+          ),
         ));
   }
 }

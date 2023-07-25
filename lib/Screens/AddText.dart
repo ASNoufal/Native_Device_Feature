@@ -1,29 +1,41 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:notifi/DataModel.dart';
+import 'package:notifi/Screens/input_image.dart';
 import 'package:notifi/provider/textprovider.dart';
 
 class AddTextScreen extends ConsumerStatefulWidget {
-  AddTextScreen({super.key});
+  const AddTextScreen({super.key});
 
   @override
   ConsumerState<AddTextScreen> createState() => _AddTextScreenState();
 }
 
 class _AddTextScreenState extends ConsumerState<AddTextScreen> {
+  final TextEditingController textEditingController = TextEditingController();
+
+  File? currentImage;
+
   void goback() {
-    final data = ref
-        .read(textprovider.notifier)
-        .additems(textEditingController.text.trim());
+    final typevalue = textEditingController.text.trim();
+
+    if (typevalue.isEmpty || currentImage == null) {
+      return;
+    }
+
+    ref.read(textprovider.notifier).additems(typevalue, currentImage!);
     Navigator.of(context).pop();
   }
 
-  final TextEditingController textEditingController = TextEditingController();
+  @override
+  void dispose() {
+    textEditingController.dispose();
+    super.dispose();
+  }
 
   @override
-  Widget build(
-    BuildContext context,
-  ) {
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Add new place"),
@@ -39,6 +51,9 @@ class _AddTextScreenState extends ConsumerState<AddTextScreen> {
                   labelText: "title", border: OutlineInputBorder()),
             ),
           ),
+          InputImage(onphotokey: (photo) {
+            currentImage = photo;
+          }),
           ElevatedButton.icon(
               icon: const Icon(Icons.add),
               onPressed: goback,

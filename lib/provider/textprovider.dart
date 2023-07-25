@@ -1,12 +1,12 @@
+import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:notifi/DataModel.dart';
-import 'package:notifi/Screens/Yourplace.dart';
 
 class TextproviderNotifier extends StateNotifier<List<ModelData>> {
   TextproviderNotifier() : super(const []);
 
-  void additems(String title) {
-    final items = ModelData(place: title);
+  void additems(String title, File image) {
+    final items = ModelData(place: title, image: image);
     state = [...state, items];
   }
 }
